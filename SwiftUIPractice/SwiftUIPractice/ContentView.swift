@@ -314,6 +314,14 @@ struct ContentViewDetail: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        //여러개 한꺼번에 보려면 Group으로 묶으면 됨
+        Group{
+            ContentView()
+                .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+                .environment(\.colorScheme, .light)
+            ContentView()
+                .previewDevice(PreviewDevice(rawValue: "iPhone XS"))
+                .environment(\.colorScheme, .dark) //dark 모드
+        }
     }
 }
