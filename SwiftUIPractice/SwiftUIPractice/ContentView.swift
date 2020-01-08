@@ -20,6 +20,19 @@ struct ContentView: View {
     @State var showDetails = false
     @State var showGreeting = true
     @State var name = "sujin"
+    @State var users = ["Hohyeon", "Gomin", "Durup"]
+    
+    struct Family: Identifiable {
+        var id = UUID()
+        var name: String
+    }
+    
+    struct FamilyRow: View {
+        var family: Family
+        var body: some View {
+            Text("Family: \(family.name)")
+        }
+    }
     
     var body: some View {
         //text
@@ -129,7 +142,46 @@ struct ContentView: View {
             Text("hello \(name)")
         }
         
-        return plainTextField
+        //list
+        let first = Family(name: "Hohyeon")
+        let second = Family(name: "Gomin")
+        let third = Family(name: "Durup")
+        let families = [first, second, third]
+        let basicList = List(families) { family in
+            FamilyRow(family: family)
+        }
+        
+        let listWithDelete =
+            NavigationView {
+                List {
+                    Section(header: Text("sec1")) {
+                        ForEach(users, id: \.self) { user in
+                            Text(user)
+                        }
+                        .onDelete(perform: delete)
+                        .onMove(perform: move)
+                    }
+                    Section(header: Text("sec2")) {
+                        ForEach(users, id: \.self) { user in
+                            Text(user)
+                        }
+                        .onDelete(perform: delete)
+                        .onMove(perform: move)
+                    }
+                }
+                .navigationBarItems(trailing: EditButton())
+                .listStyle(GroupedListStyle()) //List를 그룹화
+            }
+        
+        func delete(at offsets: IndexSet) {
+            users.remove(atOffsets: offsets)
+        }
+        
+        func move(from source: IndexSet, to destination: Int) {
+            users.move(fromOffsets: source, toOffset: destination)
+        }
+        
+        return listWithDelete
     }
 }
 
