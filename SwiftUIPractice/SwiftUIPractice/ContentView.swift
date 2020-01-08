@@ -19,6 +19,7 @@ struct ContentView: View {
     
     @State var showDetails = false
     @State var showGreeting = true
+    @State var name = "sujin"
     
     var body: some View {
         //text
@@ -118,7 +119,17 @@ struct ContentView: View {
             .background(Color.yellow)
             .edgesIgnoringSafeArea([.top, .bottom])
         
-        return textOverSafeArea
+        //textField
+        let plainTextField = VStack {
+            //첫번째 인자값이 place holder
+            TextField("Enter your name", text: $name)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .frame(width: 100)
+            SecureField("Enter your pwd", text: $name)
+            Text("hello \(name)")
+        }
+        
+        return plainTextField
     }
 }
 
