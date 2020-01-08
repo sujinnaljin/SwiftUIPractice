@@ -28,7 +28,28 @@ struct ContentView: View {
             .lineSpacing(50)
         let dateTxt = Text("Task due date : \(dueDate, formatter: Self.taskDateFormat)")
         
-        return plainTxt
+        //image
+        let sfSymbolCircle = Image(systemName: "circle") //sf symbols 사용하기 위함
+            .foregroundColor(.blue)
+        guard let image = UIImage(named: "cover") else {
+            fatalError("fail to load image")
+        }
+        let img = Image(uiImage: image)
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+        let rectangle = Rectangle()
+            .fill(Color.blue)
+            .frame(width: 50, height: 50)
+        let circle = Circle()
+            .fill(Color.blue)
+            .frame(width: 50, height: 50)
+        let textWithImageBackground = Text("Swift UI tutorial")
+            .background(
+                Image("cover")
+                    .resizable()
+                    .frame(width: 50, height: 50, alignment: .center)
+            )
+        return textWithImageBackground
     }
 }
 
