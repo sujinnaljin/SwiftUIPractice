@@ -23,6 +23,8 @@ struct ContentView: View {
     @State var users = ["Hohyeon", "Gomin", "Durup"]
     @State var showingAdvancedOptions = false
     @State var toggling = false
+    var colors = ["Red", "Green", "Blue", "Tartan"]
+    @State var selectedColor = 0
     
     struct Family: Identifiable {
         var id = UUID()
@@ -212,7 +214,22 @@ struct ContentView: View {
             Text("Hello sujinnaljin")
         }
         
-        return scrollView
+        //picker
+        let picker =
+            NavigationView {
+                Form {
+                    Section {
+                        Picker(selection: $selectedColor, label: Text("color")) {
+                            ForEach(0 ..< colors.count) {
+                                Text(self.colors[$0]).tag($0)
+                            }
+                        }
+                    }
+                    Text("You selected \(colors[selectedColor])")
+                }.navigationBarTitle(Text("Color"))
+        }
+        
+        return picker
     }
 }
 
