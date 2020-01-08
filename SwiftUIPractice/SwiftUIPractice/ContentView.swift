@@ -17,6 +17,9 @@ struct ContentView: View {
 
     var dueDate = Date()
     
+    @State var showDetails = false
+    @State var showGreeting = true
+    
     var body: some View {
         //text
         let plainTxt = Text("Hello, World!\nWhat a nice world!What a nice world!What a nice world!What a nice world!")
@@ -49,7 +52,34 @@ struct ContentView: View {
                     .resizable()
                     .frame(width: 50, height: 50, alignment: .center)
             )
-        return textWithImageBackground
+        
+        //button
+        let detailStack = VStack {
+            Button(action: {
+                //action
+                self.showDetails.toggle()
+            }) {
+                //display
+                Text("Show Detail Button")
+            }
+            if showDetails {
+                Text("You should see me in a crown")
+                    .font(.largeTitle)
+                    .lineLimit(nil)
+            }
+        }
+        
+        //toggle
+        let greetingStack = VStack {
+            Toggle(isOn: $showGreeting) {
+                Text("Welcome")
+            }.padding()
+            if showGreeting {
+                Text("Hello Sujin")
+            }
+        }
+        
+        return greetingStack
     }
 }
 
