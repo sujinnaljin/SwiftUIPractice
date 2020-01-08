@@ -27,6 +27,7 @@ struct ContentView: View {
     @State var selectedColor = 0
     @State private var celsius: Double = 0
     @State var age = 25
+    @State private var showingAlert = false
     
     struct Family: Identifiable {
         var id = UUID()
@@ -264,7 +265,28 @@ struct ContentView: View {
                 }
         }
         
-        return tab
+        //alert
+        let defaultAlert = Button(action: {
+            self.showingAlert = true
+        }) {
+            Text("Show Alert")
+        }
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("Title"), message: Text("This is a alert message"), dismissButton: .default(Text("Dismiss")))
+        }
+        
+        let upgradeAlert = Button(action: {
+            self.showingAlert = true
+        }) {
+            Text("Show Alert")
+        }
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("Title"), message: Text("Message"), primaryButton: .destructive(Text("Primary"), action: {
+                // Some action
+            }), secondaryButton: .cancel())
+        }
+
+        return upgradeAlert
     }
 }
 
