@@ -21,6 +21,8 @@ struct ContentView: View {
     @State var showGreeting = true
     @State var name = "sujin"
     @State var users = ["Hohyeon", "Gomin", "Durup"]
+    @State var showingAdvancedOptions = false
+    @State var toggling = false
     
     struct Family: Identifiable {
         var id = UUID()
@@ -181,7 +183,36 @@ struct ContentView: View {
             users.move(fromOffsets: source, toOffset: destination)
         }
         
-        return listWithDelete
+        //form
+        //Form은 HStack이나 VStack과 같은 컨테이너와 비슷하게 작동. 즉, Form 안에 여러 뷰를 넣을 수 있다.
+        //단지, 특정 컨트롤 요소에 대해 더 보기 좋고 잘 작동하게 해줌
+        let formNav = NavigationView {
+            Form {
+                Section(footer: Text("footer")) {
+                    Toggle(isOn: $showingAdvancedOptions) {
+                        Text("Show advanced options")
+                    }
+                    if showingAdvancedOptions {
+                        Toggle(isOn: $toggling) {
+                            Text("Toggly")
+                        }
+                    }
+                }
+                Button(action: {
+                    print("click button")
+                }) {
+                    Text("Save changes")
+                }.disabled(!(toggling&&showingAdvancedOptions))
+            }.navigationBarTitle(Text("Settings"))
+        }
+        
+        //scroll view
+        let scrollView = ScrollView() {
+            Image("cover")
+            Text("Hello sujinnaljin")
+        }
+        
+        return scrollView
     }
 }
 
