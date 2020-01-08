@@ -249,7 +249,22 @@ struct ContentView: View {
             }.navigationBarTitle("첫번째 화면")
         }
         
-        return navi
+        //tabView
+        let tab = TabView {
+            ContentViewDetail()
+                .tabItem {
+                    Image(systemName: "list.dash")
+                    Text("Menu")
+                }
+
+            ContentViewDetail()
+                .tabItem {
+                    Image(systemName: "square.and.pencil")
+                    Text("Order")
+                }
+        }
+        
+        return tab
     }
 }
 
