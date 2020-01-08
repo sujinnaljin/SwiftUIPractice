@@ -79,7 +79,46 @@ struct ContentView: View {
             }
         }
         
-        return greetingStack
+        //View 시스템
+        //VStack or HStack
+        let vStack = VStack(alignment: .trailing, spacing: 50) {
+            Text("Hello SwiftUI")
+            Divider()
+            Text("Sujin")
+                .padding(.bottom, 100) //인자 안전달하면 디폴트
+            Text("Naljin")
+        }
+        
+        //zStack은 뷰 겹칠때 사용하는 코드
+        let zStack = ZStack {
+            Image("cover")
+            Text("sujinnaljinsujinnaljin")
+        }
+        
+        //someview는 특정한 하나의 뷰타입이 리턴한다고 이해. 따라서 다양한 뷰 타입을 한번에 리턴할 수 없음.
+        //1. 그룹으로 감싸준다
+        let group = Group {
+            if Bool.random() {
+                Image("cover")
+            } else {
+                Text("fail")
+            }
+        }
+        //2. Any뷰로 각각의 뷰를 감싸서 특정한 리턴 뷰 타입을 없앤다
+        if Bool.random() {
+            //return AnyView(Image("cover"))
+        } else {
+            //return AnyView(Text("fail"))
+        }
+
+        //safe area
+        //safe area 넘고 싶을때
+        let textOverSafeArea = Text("sujinnaljinsujinnaljin")
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+            .background(Color.yellow)
+            .edgesIgnoringSafeArea([.top, .bottom])
+        
+        return textOverSafeArea
     }
 }
 
