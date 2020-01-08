@@ -25,6 +25,8 @@ struct ContentView: View {
     @State var toggling = false
     var colors = ["Red", "Green", "Blue", "Tartan"]
     @State var selectedColor = 0
+    @State private var celsius: Double = 0
+    @State var age = 25
     
     struct Family: Identifiable {
         var id = UUID()
@@ -229,7 +231,18 @@ struct ContentView: View {
                 }.navigationBarTitle(Text("Color"))
         }
         
-        return picker
+        //slider와 stepper
+        let slider = VStack {
+                   Slider(value: $celsius, in: -100...100, step: 0.1)
+                   Text("\(celsius) Celsius is \(celsius * 9 / 5 + 32) Fahrenheit")
+               }
+        
+        let stepper = VStack {
+            Stepper("Enter your age", value: $age, in: 0...130, step: 2)
+            Text("Your age is \(age)")
+        }
+        
+        return stepper
     }
 }
 
