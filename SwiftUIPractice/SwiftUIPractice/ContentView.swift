@@ -28,6 +28,7 @@ struct ContentView: View {
     @State private var celsius: Double = 0
     @State var age = 25
     @State private var showingAlert = false
+    @State var showingSheet = false
     
     struct Family: Identifiable {
         var id = UUID()
@@ -285,8 +286,20 @@ struct ContentView: View {
                 // Some action
             }), secondaryButton: .cancel())
         }
-
-        return upgradeAlert
+        
+        //actionSheet
+        let actionSheet = Button(action: {
+            self.showingSheet = true
+        }) {
+            Text("Show Action Sheet")
+        }
+        .actionSheet(isPresented: $showingSheet) {
+            ActionSheet(title: Text("Title"), message: Text("message"), buttons: [.default(Text("Dismiss")), .cancel(Text("Cancel")), .destructive(Text("danger"), action: {
+                print("danger")
+            })])
+        }
+        
+        return actionSheet
     }
 }
 
