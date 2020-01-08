@@ -242,7 +242,23 @@ struct ContentView: View {
             Text("Your age is \(age)")
         }
         
-        return stepper
+        //navigationView
+        let navi = NavigationView {
+            NavigationLink(destination: ContentViewDetail()) {
+                Text("첫번째 화면 내용")
+            }.navigationBarTitle("첫번째 화면")
+        }
+        
+        return navi
+    }
+}
+
+struct ContentViewDetail: View {
+    var body: some View {
+        VStack() {
+            Text("디테일 화면 내용")
+        }
+        .navigationBarTitle("디테일 화면")
     }
 }
 
